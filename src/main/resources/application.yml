@@ -1,0 +1,41 @@
+server:
+  port: 8086
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+      generate-ddl: false
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pedidos?createDatabaseIfNotExist=true
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari.maximum-pooll-size: 10
+    driver-class-name: org.postgresql.Driver
+  kafka:
+    properties:
+      schema:
+        registry:
+          url: ${SCHEMA_REGISTRY_URL:http://localhost:8081}
+    consumer:
+      bootstrap-servers: 127.0.0.1:9092
+      group-id: conta
+      auto-offset-reset: earliest
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring:
+          deserializer:
+            key:
+              delegate:
+                class: org.apache.kafka.common.serialization.StringDeserializer
+            value:
+              delegate:
+                class: io.confluent.kafka.serializers.KafkaAvroDeserializer
+        specific:
+          avro:
+            reader: true
+      topic:
+        nova-conta: NOVA_CONTA

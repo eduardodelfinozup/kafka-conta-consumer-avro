@@ -1,2 +1,1 @@
-# kafka-conta-consumer-avro
-Consumidor utilizando avro
+# kafka consumidor avro

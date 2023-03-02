@@ -1,0 +1,27 @@
+{
+  "namespace": "com.zupfood.conta",
+  "type": "record",
+  "name": "NovaContaEvent",
+  "version":"1",
+  "fields": [
+    {
+      "name": "id",
+      "type": "long"
+    },
+    {
+      "name": "agencia",
+      "type": "int"
+    },
+    {
+      "name": "numero",
+      "type": "long"
+    },
+    {
+      "name": "saldo",
+      "type": [ {
+        "type": "string",
+        "java-class": "java.math.BigDecimal"
+      } ]
+    }
+  ]
+}
